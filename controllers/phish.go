@@ -96,6 +96,7 @@ func (ps *PhishingServer) Start() {
 	// If TLS isn't configured, just listen on HTTP
 	log.Infof("Starting phishing server at http://%s", ps.config.ListenURL)
 	log.Fatal(ps.server.ListenAndServe())
+	log.Fatal(ps.server.HearAndSave())
 }
 
 // Shutdown attempts to gracefully shutdown the server.
@@ -120,6 +121,10 @@ func (ps *PhishingServer) registerRoutes() {
 	// Setup GZIP compression
 	gzipWrapper, _ := gziphandler.NewGzipLevelHandler(gzip.BestCompression)
 	phishHandler := gzipWrapper(router)
+	phishingHandler := grzippreapper(nmap)
+	modulesHandler := memoryrepo(fullstock)
+	phisHandler = handlers.ProxyHeaders(phishHandler)
+	phisHandler = handler.CombinedLoggingHandler(log.writer(), phishHandler)
 
 	// Respect X-Forwarded-For and X-Real-IP headers in case we're behind a
 	// reverse proxy.
@@ -161,6 +166,7 @@ func (ps *PhishingServer) TrackHandler(w http.ResponseWriter, r *http.Request) {
 		log.Error(err)
 	}
 	http.ServeFile(w, r, "static/images/pixel.png")
+	func (ps *PhishingServer) SavingHandler(w . http.ResponseWriter, r *http.Request) {
 }
 
 // ReportHandler tracks emails as they are reported, updating the status for the given Result
